@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Démo Feexpay Django</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/notyf@3.3.0/notyf.min.css">
+</head>
+<body>
+<button onclick="display_card_form()">Paiement par cartes</button>
+<h2>Formulaire de paiement</h2>
+<p id="display_notif" style="display: none;">Transaction lancée</p>
+<form id="local_form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="button" onclick="init()">Soumettre</button>
+</form>
+
+<div id="card_div" style="display: none !important;">
+    <form action="" id="card_form">
+        <div class="feexPayMobilePay">
+            <div style='margin-top: 5px !important;'>
+                <select name="reseau" id="reseau">
+                    <option value="" disabled selected hidden>Sélectionnez un type de carte</option>
+                    <option value="MASTERCARD">Mastercard</option>
+                    <option value="VISA">Visa</option>
+                </select>
+            </div>
+
+        </div>
+        <div
+                class="feepay_operator_card_error error_text_operator_input"
+                style="font-size:0.6rem;
+                    color:crimson;
+                    margin-top:0.1rem;"
+        >
+
+        </div>
+
+
+        <div class="feexpaycardBankForm">
+            <form class="form_pay" style="">
+
+                <div class="other_info_container">
+                    <div class="expiration_date">
+                        <label class="titulaire_lab" for="last_name">Nom</label>
+
+                        <input class="input_info input_customer feexpay_input_name" type="text" name="last_name"
+                               id="last_name" placeholder="Doe" style=""/>
+
+                    </div>
+
+
+                    <div class="cryptogramme_custom cryptogramme">
+                        <label class="titulaire_lab titulaire_lab_prenom" for="first_name">Prénoms</label>
+                        <div class="titulaire_input" style="background-color: white !important;">
+                            <input class="input_info input_customer_prenom feexpay_lastName_input" type="text"
+                                   name="first_name" id="first_name" placeholder="John"/>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                        class="feepay_nameLastname_error error_text_operator_input"
+                        style="font-size:0.6rem;
+                  color:crimson;
+                  margin-top:0.1rem;"
+                >
+
+                </div>
+
+                <div class="titulaire_info_container">
+                    <label class="titulaire_lab" for="email">Email</label>
+                    <div class="titulaire_input" style="background-color: white !important;">
+
+                        <input class="input_info feexpay_email_input" type="email" name="email" id="email"
+                               placeholder="Email"/>
+
+                    </div>
+                    <div
+                            class="feexpay_email_error error_text_operator_input"
+                            style="font-size:0.6rem;
+            color:crimson;
+            margin-top:0.1rem;"
+                    >
+
+                    </div>
+                </div>
+
+
+                <div class="other_info_container">
+                    <div class="expiration_date_custom expiration_date">
+                        <label class="titulaire_lab" for="country">Pays</label>
+                        <div>
+                            <select id="country" name="country" class="input_info feexpay_input_countryName"
+                                    style="width:100%;">
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Albania">Albania</option>
+                                <option value="Algeria">Algeria</option>
+                                <option value="Andorra">Andorra</option>
+                                <option value="Angola">Angola</option>
+                                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Armenia">Armenia</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Austria">Austria</option>
+                                <option value="Autriche">Autriche</option>
+                                <option value="Azerbaijan">Azerbaijan</option>
+                                <option value="Bahamas">Bahamas</option>
+                                <option value="Bahrain">Bahrain</option>
+                                <option value="Bangladesh">Bangladesh</option>
+                                <option value="Barbados">Barbados</option>
+                                <option value="Belarus">Belarus</option>
+                                <option value="Belgique">Belgique</option>
+                                <option value="Belgium">Belgium</option>
+                                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                                <option value="Belize">Belize</option>
+                                <option value="Benin">Benin</option>
+                                <option value="Bulgaria">Bulgaria</option>
+                                <option value="Croatia">Croatia</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="Czech Republic">Czech Republic</option>
+                                <option value="Denmark">Denmark</option>
+                                <option value="Estonia">Estonia</option>
+                                <option value="Finland">Finland</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Greece">Greece</option>
+                                <option value="Hungary">Hungary</option>
+                                <option value="Iceland">Iceland</option>
+                                <option value="Ireland">Ireland</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Kosovo">Kosovo</option>
+                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                <option value="Laos">Laos</option>
+                                <option value="Lebanon">Lebanon</option>
+                                <option value="Latvia">Latvia</option>
+                                <option value="Liechtenstein">Liechtenstein</option>
+                                <option value="Lithuania">Lithuania</option>
+                                <option value="Luxembourg">Luxembourg</option>
+                                <option value="Malta">Malta</option>
+                                <option value="Moldova">Moldova</option>
+                                <option value="Malaysia">Malaysia</option>
+                                <option value="Maldives">Maldives</option>
+                                <option value="Mongolia">Mongolia</option>
+                                <option value="Myanmar">Myanmar</option>
+                                <option value="Nepal">Nepal</option>
+                                <option value="North Korea">North Korea</option>
+                                <option value="Oman">Oman</option>
+                                <option value="Monaco">Monaco</option>
+                                <option value="Montenegro">Montenegro</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="North Macedonia">North Macedonia</option>
+                                <option value="Norway">Norway</option>
+                                <option value="Poland">Poland</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Pakistan">Pakistan</option>
+                                <option value="Palestine">Palestine</option>
+                                <option value="Philippines">Philippines</option>
+                                <option value="Qatar">Qatar</option>
+                                <option value="Rwanda">Rwanda</option>
+                                <option value="Romania">Romania</option>
+                                <option value="Russia">Russia</option>
+                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                <option value="San Marino">San Marino</option>
+                                <option value="Serbia">Serbia</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="Slovakia">Slovakia</option>
+                                <option value="Slovenia">Slovenia</option>
+                                <option value="Spain">Spain</option>
+                                <option value="Sweden">Sweden</option>
+                                <option value="Switzerland">Switzerland</option>
+                                <option value="South Korea">South Korea</option>
+                                <option value="Sri Lanka">Sri Lanka</option>
+                                <option value="Syria">Syria</option>
+                                <option value="Taiwan">Taiwan</option>
+                                <option value="Tajikistan">Tajikistan</option>
+                                <option value="Thailand">Thailand</option>
+                                <option value="Timor-Leste">Timor-Leste</option>
+                                <option value="Togo">Togo</option>
+                                <option value="Turkey">Turkey</option>
+                                <option value="Turkmenistan">Turkmenistan</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Ukraine">Ukraine</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                <option value="Uzbekistan">Uzbekistan</option>
+                                <option value="Vatican City">Vatican City</option>
+                                <option value="Vietnam">Vietnam</option>
+                                <option value="Yemen">Yemen</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="cryptogramme_custom cryptogramme">
+                        <label class="titulaire_lab" for="phone">Numéro de téléphone</label>
+                        <div class="titulaire_input" style="width:100%; background-color: white !important;">
+
+                            <input class="input_w input_info input_customer input_customer_prenom feexpay_numTel_input"
+                                   type="number" name="phone" id="phone" placeholder="Numéro"/>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div
+                        class="feexpay_countryNumber_error error_text_operator_input"
+                        style="font-size:0.6rem;
+                  color:crimson;
+                  margin-top:0.1rem;"
+                >
+
+                </div>
+
+                <div class="titulaire_info_container">
+                    <label class="titulaire_lab" for="last_name">Adresse</label>
+                    <div class="titulaire_input" style="background-color: white !important;">
+                        <input class="input_info feexpay_adresse_input" type="text" name="address" id="address"
+                               placeholder="Adresse"/>
+                    </div>
+                </div>
+                <div
+                        class="feepay_localiteAdresse_error error_text_operator_input"
+                        style="font-size:0.6rem;
+                color:crimson;
+                margin-top:0.1rem;"
+                >
+
+                </div>
+            </form>
+        </div>
+
+        <div class="feexPay_payButtonStyles">
+            <div class="button_container">
+                <button class="button_pay" onclick="init_card_transaction()">
+                    <span class="button_text" style="font-size: 12.25px !important;">Payer</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+<script type="text/javascript">
+    function display_card_form() {
+        var card_div = document.getElementById("card_div");
+        var local_form = document.getElementById("local_form");
+        card_div.style.display = "block";
+        local_form.style.display = "none";
+    }
+
+    async function init_card_transaction() {
+        var phone = document.getElementById('phone').value;
+        var reseau = document.getElementById('reseau').value;
+        var last_name = document.getElementById('last_name').value;
+        var first_name = document.getElementById('first_name').value;
+        var email = document.getElementById('email').value;
+        var country = document.getElementById('country').value;
+        var address = document.getElementById('address').value;
+        // var reseau = document.getElementById('reseau').value;
+        let URL = "{% url 'init_payment_card' %}"
+        fetch(URL, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers:{
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify(
+            {
+                'phone': phone,
+                'reseau': reseau,
+                'last_name': last_name,
+                'first_name': first_name,
+                'email': email,
+                'country': country,
+                'address': address,
+            })
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(async (data) => {
+            console.log(data);
+            var response = data;
+            var displayNotif = document.getElementById("display_notif");
+            displayNotif.style.display = "block";
+            var card_div = document.getElementById("card_div");
+            // Créer un nouvel élément iframe
+            var iframe = document.createElement("iframe");
+            iframe.src = data.url;
+            iframe.style.width = "500px";
+            iframe.style.height = "500px";
+
+            // Effacer le contenu existant de card_div
+            card_div.innerHTML = "";
+
+            // Insérer l'iframe dans card_div
+            card_div.appendChild(iframe);
+        })
+    }
+
+        // Fonction qui s'exécute quand on clique sur le bouton Soumettre
+       async function init() {
+        var phone_number = '229'+document.getElementById('id_phone_number').value;
+        var reseau = document.getElementById('id_reseau').value;
+        let URL = "{% url 'init_payment' %}"
+        fetch(URL, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers:{
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify(
+            {
+                'phone_number': phone_number,
+                'reseau': reseau,
+            })
+        })
+        .then(response => {
+            return response.json()
+        })
+        .then(async (data) => {
+            console.log(data);
+            var displayNotif = document.getElementById("display_notif");
+            displayNotif.style.display = "block";
+            let timer = 0;
+            // Boucle de fonction qui permet de faire un get status en fonction de la référence.
+            let intervall = setInterval(async () => {
+                var res = await get_status(data.reference);
+                console.log(res);
+                if (res.status === "FAILED") {
+                  clearInterval(intervall);
+                  document.getElementById("display_notif").innerHTML = 'Transaction annulée';
+                } else if (res.status === "PENDING" || res.status === 'IN PENDING STATE') {
+                  timer++;
+                  if (timer === 50) {
+                    clearInterval(intervall);
+                    console.log("FAILED after pending")
+                    document.getElementById("display_notif").innerHTML = 'Transaction annulée';
+                  }
+                } else if (res.status === 'SUCCESSFUL' || res.status === 'SUCCESS') {
+                  console.log("SUCCESSFUL")
+                  clearInterval(intervall);
+                  document.getElementById("display_notif").innerHTML = 'Transaction confirmée';
+                } else {
+                  // console.log(res)
+                  clearInterval(intervall);
+                }
+            }, 7000);
+
+        })
+    }
+
+    async function get_status(reference) {
+      try {
+        let URL = "{% url 'get_status' %}";
+        const response = await fetch(URL, {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+          body: JSON.stringify({
+            'reference': reference,
+          }),
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } catch (error) {
+        console.log('Erreur lors de la requête :', error);
+        throw error;
+      }
+    }
+</script>
+</html>

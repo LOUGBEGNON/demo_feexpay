@@ -1,0 +1,45 @@
+# byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# tests and coverage
+*.pytest_cache
+.coverage
+
+# database & logs
+*.db
+*.sqlite3
+*.log
+logs
+
+# venv
+env
+venv
+
+# other
+.DS_Store
+
+# javascript
+package-lock.json
+
+#visual studio files
+.vscode/symbols.json
+.vscode/*
+
+.idea/*
+
+# env file that could contain sensible info
+.env
+
+celerybeat-schedule
+
+#Temporary IOS files
+Thumbs.db
+
+#Visual Studio Code
+.vscode
+.vscode/settings.json
+
+# apps/app/templates/app/includes/navigation.html
+
+media

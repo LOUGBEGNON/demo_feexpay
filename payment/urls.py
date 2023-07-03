@@ -42,7 +42,7 @@ def logout_user(request):
 
 urlpatterns = [
     # General links
-    path('display-payment-form', views.display_payment_form, name="display_payment_form"),
+    path('', views.display_payment_form, name="display_payment_form"),
     path(
         "init-payment",
         views.init_payment,
